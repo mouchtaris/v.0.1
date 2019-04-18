@@ -1,0 +1,95 @@
+sleeping 11
+direction: rotating.
+sleeping 13
+speed: fuck you!
+sleeping 7
+speed: fuck you!
+sleeping 9
+duration: short.
+sleeping 13
+duration: zero.
+sleeping 6
+size: xs.
+sleeping 13
+shape: cross.
+sleeping 7
+shape: circular.
+sleeping 5
+speed: cockain.
+sleeping 7
+polarity: right.
+sleeping 14
+speed: stoned.
+sleeping 13
+shape: cross.
+sleeping 6
+shape: spiral.
+sleeping 14
+texture: thick.
+sleeping 5
+size: fuck you!
+sleeping 14
+direction: fuck you!
+sleeping 12
+speed: normal.
+sleeping 15
+duration: fuck you!
+sleeping 7
+shape: circular.
+sleeping 11
+direction: fuck you!
+sleeping 5
+direction: back.
+sleeping 9
+level: high.
+sleeping 6
+duration: long.
+sleeping 9
+polarity: left.
+sleeping 7
+texture: fuck you!
+sleeping 11
+polarity: right.
+sleeping 7
+size: s.
+sleeping 14
+direction: fuck you!
+sleeping 15
+texture: minimal.
+sleeping 14
+direction: give 'n' take.
+sleeping 9
+speed: cockain.
+sleeping 13
+direction: up.
+sleeping 8
+speed: chill.
+sleeping 6
+duration: slong.
+sleeping 15
+polarity: left.
+sleeping 13
+size: s.
+sleeping 5
+shape: cubic.
+sleeping 10
+speed: stoned.
+sleeping 5
+direction: undefined.
+sleeping 6
+direction: contra.
+sleeping 5
+size: m.
+sleeping 11
+duration: normal.
+sleeping 8
+shape: fuck you!
+sleeping 8
+speed: fuck you!
+sleeping 14
+duration: zero.
+sleeping 13
+speed: fuck you!
+sleeping 15
+speed: booto.
+sleeping 10
