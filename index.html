@@ -1,0 +1,146 @@
+<html>
+  <head>
+    <title> Title? Fuck you! </title>
+    <script type="text/javascript">
+      const cats = new Map([
+        ["direction", [
+          "front",
+          "back",
+          "down",
+          "up",
+          "left",
+          "right",
+          "diagonal",
+          "rotating",
+          "reverse",
+          "undefined",
+          "chaotic",
+          "zero",
+          "give 'n' take",
+          "contra",
+        ]],
+        ["duration", [
+          "forever",
+          "slong",
+          "long",
+          "normal",
+          "short",
+          "very short",
+          "dot",
+          "zero",
+        ]],
+        ["level",[
+          "fly",
+          "high",
+          "standing",
+          "medium",
+          "low",
+          "all fours",
+          "flat",
+        ]],
+        ["polarity", [
+          "positive",
+          "negative",
+          "up",
+          "down",
+          "left",
+          "right",
+        ]],
+        ["shape", [
+          "circular",
+          "cross",
+          "cubic",
+          "curvy",
+          "edgy",
+          "linear",
+          "spiral",
+          "tilt",
+          "twisted",
+          "wave",
+          "gesture",
+          "point",
+          "zero",
+        ]],
+        ["size", [
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+        ]],
+        ["speed", [
+          "a.f.a.p",
+          "cockain",
+          "fast",
+          "hurry",
+          "normal",
+          "chill",
+          "slow",
+          "stoned",
+          "booto",
+          "death",
+        ]],
+        ["texture", [
+          "thick",
+          "sliding",
+          "hitting",
+          "minimal",
+          "condenced",
+          "stretched",
+          "noisy",
+        ]],
+      ])
+
+      const synth = window.speechSynthesis;
+      const text = "Hello, V.0.1. If you are wondering what the hell is going on, check this shit out"
+
+      function get_display() {
+        return document.getElementById("display")
+      }
+      function db(text) {
+        const child = document.createElement("pre")
+        child.innerText = text
+        get_display().appendChild(child)
+      }
+      function say(text) {
+        db(text)
+        const utter = new SpeechSynthesisUtterance(text)
+        synth.speak(utter)
+      }
+      window.resizeTo(800, 600)
+      window.onload = (e) => {
+        say(text)
+      }
+
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
+      function start_talking_shit() {
+        const cati = getRandomInt(cats.size)
+        const cat = Array.from(cats.keys())[cati]
+        const vals = cats.get(cat)
+        const vali = getRandomInt(vals.length)
+        const val = vals[vali]
+        const wait = (5 + getRandomInt(10))
+        say(`${cat}: ${val}`)
+        db(`sleeping ${wait} seconds...`)
+        setTimeout(start_talking_shit, wait * 1000)
+      }
+    </script>
+  </head>
+  <body>
+    <div id="display">
+      Hello, V.0.1.
+    </div>
+    <div>
+      <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API#Demo_2">
+        this shit
+      </a>
+    </div>
+
+    <p>
+      CLICK ME ==&gt; <span onclick="start_talking_shit()">Start talking shit</span> &lt;== CLICK ME
+    </p>
+
+  </body>
+</html>
