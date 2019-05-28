@@ -1,6 +1,6 @@
 import cats from './cats/index.js'
 const synth = window.speechSynthesis;
-const text = ''//"Hello, V.0.1. If you are wondering what the hell is going on, check this shit out"
+const text = "Hello, V.0.1. Fuck you. If you are wondering what the hell, is going on, check this shit out."
 
 class Option<T>
 {
