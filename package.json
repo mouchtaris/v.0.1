@@ -1,0 +1,13 @@
+{
+  "name": "v",
+  "version": "1.0.1",
+  "main": "index.js",
+  "author": "Nikos Mouchtaris <n.mouchtaris@youngcapital.nl>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/koa": "^2.0.48",
+    "koa": "^2.7.0",
+    "typescript": "^3.4.5",
+    "yarn": "^1.16.0"
+  }
+}
