@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+// @ts-check
+const fs = require('fs')
+const { inspect } = require('util')
+const process = require('process')
+
+const LINE_COMMENT = /\/\/.*[^]/g
+const BLOCK_COMMENT = /(\/\*[^*]*\*\/[^])/g
+const LAST_COMMA = /,\s*\}/
+
+const tsconfig_json_str = fs
+  .readFileSync('tsconfig.json')
+  .toString()
+  .replace(LINE_COMMENT, '')
+  .replace(BLOCK_COMMENT, '')
+  .replace(LAST_COMMA, '}')
+const tsconfig_json = JSON.parse(tsconfig_json_str)
+const tsconfig = tsconfig_json.compilerOptions
+const opts = Object.keys(tsconfig)
+  .map((name) => {
+    const val = tsconfig[name]
+    switch (typeof val) {
+      case 'boolean':
+        return `--${name}`
+      default:
+        return `--${name} ${val}`
+    }
+  })
+const opts_str = opts
+  .reduce((acc, opt) => {
+    if (acc.length === 0)
+      return opt
+    return `${acc} ${opt}`
+  })
+
+process.stdout.write(opts_str)

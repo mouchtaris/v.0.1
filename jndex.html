@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title> Title? Fuck you! </title>
+    <script type="module">
+      // import { start_talking_shit } from './dist/index.js'
+      import * as dist from './dist/index.js'
+      window.dist = dist
+    </script>
+    <style type="text/css">
+      body {
+        background-color: #405040;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      #display {
+        background-color: #101010;
+        width: 80%;
+        margin: 0 auto;
+        color: #508040;
+        text-align: center;
+        border: 2px solid #405090
+      }
+      #clickme {
+        background-color: #808000;
+        width: 50%;
+        margin: 0 auto;
+        font-size: 1.4em;
+        text-align: center;
+        padding: 1.6em;
+        border: 4px dotted #800040;
+      }
+      #start_talking_shit {
+        text-decoration: blink;
+        animation: blinker 1s linear infinite;
+      }
+      @keyframes blinker {
+        50% {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="display">
+      Hello, V.0.1.
+    </div>
+    <div>
+      <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API#Demo_2">
+        this shit
+      </a>
+    </div>
+
+    <p id="clickme">
+      CLICK ME ==&gt; <span id="start_talking_shit" onclick="dist.start_talking_shit()">
+         Start talking shit
+     </span> &lt;== CLICK ME
+    </p>
+
+  </body>
+</html>
