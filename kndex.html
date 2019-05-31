@@ -1,0 +1,105 @@
+<html>
+  <head>
+    <title> Title? Fuck you! </title>
+    <script src="target/scala-2.12/v-dot-zero-dot-one-fastopt.js"></script>
+    <style type="text/css">
+      body {
+        background-color: #202020;
+      }
+      .container::before {
+        content: attr(id);
+        text-align: center;
+        font-size: .8em;
+        text-decoration: underline;
+        display: block;
+        width: 100%;
+        color: #707070;
+        border-bottom: 2px double #505050;
+        margin-bottom: 2em;
+      }
+      .container {
+        padding: .4em;
+        border-style: dotted;
+        border-width: .2em;
+        margin-top: 1em;
+        vertical-align: top;
+      }
+      #panel > .container {
+        display: inline-block;
+      }
+      #panel { border: none }
+      #display {
+        background-color: #302030;
+        color: #807080;
+        border-color: #504050;
+      }
+      #sleeping_display {
+        text-align: center;
+        font-size: 2em;
+        border-color: limegreen;
+        color: #c070a0;
+        width: 10%;
+      }
+      #talking_shit_display {
+        width: 1%;
+        border-color: #e9a5af;
+      }
+      #talking_shit_display.on {
+        background-color: forestgreen;
+      }
+      #talking_shit_display.off {
+        background-color: orangered;
+      }
+      #talking_shit_display::before { display: none }
+      #sleeping_display::before { display: none }
+      #probabilities {
+        border-color: aquamarine;
+        width: 75%;
+        margin-left: 1%;
+      }
+      #probabilities::before { display: none }
+      #logstash {
+        border-color: #500020;
+        background-color: #200000;
+      }
+      .category {
+        border: 1px dashed #606060;
+        color: #6892e9;
+        font-family: sans-serif;
+        font-size: .8em;
+      }
+      .category > .name,
+      .category > .values {
+        display: inline-block;
+        padding: .2em;
+      }
+      .category > .name {
+        width: 10%;
+      }
+      .category > .values {
+        width: 84%;
+        border-left: 3px double blanchedalmond;
+      }
+      .category > .values > .value {
+        display: inline-block;
+        border-right: 2px double #e9a5af;
+        padding: .2em;
+        width: 20%;
+      }
+      .category > .values > .value.instructed {
+        color: #e9a83b
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="display"></div>
+    <div class="container" id="panel">
+      <div class="container" id="sleeping_display"></div>
+      <div class="container" id="talking_shit_display"
+           onclick="console.log('hi')"
+      ></div>
+      <div class="container" id="probabilities"></div>
+    </div>
+    <div class="container" id="logstash"></div>
+  </body>
+</html>
