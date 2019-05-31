@@ -53,8 +53,10 @@ class Main extends AnyRef
     duration_min + getRandomInt(duration_span)
   }
 
-  def get_random_category(): (String, Vector[String]) = {
-    cats.toIndexedSeq(getRandomInt(cats.size))
+  def get_random_category(): (Int, (String, Vector[String])) = {
+    val i = getRandomInt(cats.size)
+    val pair = cats.toIndexedSeq(i)
+    (i, pair)
   }
 
   def schedule_shit(at: Int): Unit = {
@@ -62,7 +64,7 @@ class Main extends AnyRef
   }
 
   val start_talking_shit: () ⇒ Unit = () ⇒ {
-    val (cat, vals) = get_random_category()
+    val (cati, (cat, vals)) = get_random_category()
     val vali = getRandomInt(vals.size)
     val value = vals(vali)
     val wait = get_random_wait()
@@ -78,10 +80,13 @@ class Main extends AnyRef
       wait_duration = get_random_wait(),
       probs = cats
         .map {
-          case (cat, vals) ⇒
-            val probs = vals.map { v ⇒ (v, Prob(vals.size)) }.toMap
-            (cat, probs)
+          case (cat_name, vals) ⇒
+            Prob.Group(
+              name = cat_name,
+              probs = vals.map { v ⇒ Prob(over = vals.size, name = v) }
+            )
         }
+        .toVector
     )
   }
 }

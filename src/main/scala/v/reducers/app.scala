@@ -32,14 +32,32 @@ final class app(mane: Main) {
           timeout = 1000
         )
 
-      val mod = if (state.wait_duration == 0) {
-        val wait = mane.get_random_wait()
-        set_wait(wait)
+      def probs2 = {
+        val selected_cat = mane.getRandomInt(state.probs.size)
+        val cat = state.probs(selected_cat)
+        val selected_prob = mane.getRandomInt(cat.probs.size)
+
+        state.probs.zipWithIndex.map {
+          case (cat, cati) ⇒
+            cat.copy(
+              instructed = cati == selected_cat,
+              probs = cat.probs.zipWithIndex.map {
+                case (prob, probi) ⇒
+                  prob.copy(
+                    instructed = cati == selected_cat && probi == selected_prob
+                  )
+              })
+        }
+      }
+
+      val result = if (state.wait_duration == 0) {
+        (set_wait(mane.get_random_wait()).apply _)
+          .andThen { _.copy(probs = probs2) }
+          .apply(state)
       }
       else
-        set_wait(state.wait_duration - 1)
+        set_wait(state.wait_duration - 1)(state)
 
-      val result = mod(state)
       mane.draw(result)
       result
     }
@@ -53,5 +71,23 @@ final class app(mane: Main) {
   final case class set_wait(value: Int) extends Action {
     override def apply(state: State): State =
       state.copy(wait_duration = value)
+  }
+
+  final case class mod_prob(cati: Int, probi: Int, mod: Prob ⇒ Prob) extends Action {
+    override def apply(state: State): State = {
+      val cat = state.probs(cati)
+      val prev = cat.probs(probi)
+      state.copy(probs =
+        state.probs.updated(
+          cati,
+          cat.copy(probs =
+            cat.probs.updated(
+              probi,
+              mod(prev)
+            )
+          )
+        )
+      )
+    }
   }
 }

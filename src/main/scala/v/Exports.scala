@@ -27,4 +27,7 @@ object Exports {
     }
   def talks: Unit = props(_.talking_shit)
   def waits: Unit = props(_.wait_duration)
+
+  def set(cati: Int, probi: Int, prob: Int): Unit =
+    dispatch(app.mod_prob(cati, probi, _.copy(over = prob)))
 }

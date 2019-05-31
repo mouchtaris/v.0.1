@@ -5,5 +5,5 @@ import scalajs.js
 final case class State(
   wait_duration: Int,
   talking_shit: Boolean = false,
-  probs: Map[String, Map[String, Prob]] = Map.empty,
+  probs: Vector[Prob.Group] = Vector.empty,
 )
