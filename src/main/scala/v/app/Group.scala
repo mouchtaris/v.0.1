@@ -28,7 +28,29 @@ final case class Group[T <: Probable](
   def map[U](f: T ⇒ U): Vector[U] =
     items_ map f
 
+  def lcm: Int =
+    items_
+      .foldLeft(Rational.one[Int]) { (lcmr, item) ⇒ lcmr.lcmrat(item.prob) }
+      .o
+
   def rand(rand: Int ⇒ Int): (Int, T) = {
-    (0, items_.head)
+    val lcm = this.lcm
+    val r = rand(lcm)
+    items_
+      .zipWithIndex
+      .foldLeft(0, None: Option[(Int, T)]) {
+        case ((acc_prob, result), (item, index)) ⇒
+          if (result.isDefined)
+            (acc_prob, result)
+          else {
+            val acc_prob2 = acc_prob + item.prob.modlcm(lcm).u
+            if (r < acc_prob2)
+              (0, Some((index, item)))
+            else
+              (acc_prob2, None)
+          }
+      }
+      ._2
+      .get
   }
 }
