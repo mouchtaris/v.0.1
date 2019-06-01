@@ -46,17 +46,28 @@
         border-color: limegreen;
         color: #c070a0;
       }
+
       #talking_shit_display {
         width: 1%;
         border-color: #e9a5af;
+        text-align: center;
       }
+
+      .blinky {
+        animation: blinker 1s linear infinite;
+      }
+      @keyframes blinker { 50% { opacity: 0; } }
+
       #talking_shit_display.on {
         background-color: forestgreen;
+        animation: blinker 1s linear infinite;
       }
       #talking_shit_display.off {
         background-color: orangered;
       }
-      #talking_shit_display::before { display: none }
+      #talking_shit_display::before {
+        content: 'CLOCL ME!!!';
+      }
       #sleeping_display::before { display: none }
       #probabilities {
         border-color: aquamarine;
@@ -127,7 +138,9 @@
              console.log(v.toggle)
              v.toggle()
            })()"
-      ></div>
+      >
+           CLICK ME!
+      </div>
       <div class="container right" id="probabilities"></div>
     </div>
     <div class="container" id="logstash"></div>
