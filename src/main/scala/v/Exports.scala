@@ -20,6 +20,10 @@ object Exports {
   def tick = dispatch(app.tick)
   def talk(v: Boolean) = dispatch(app.set_talking_shit(v))
   def wait(v: Int) = dispatch(app.set_wait(v))
+  def toggle() = {
+    dispatch(app.toggle_talking)
+    dispatch(app.tick_if_talking)
+  }
 
   def state: String = ss.last.toString
 
@@ -30,6 +34,9 @@ object Exports {
   def talks: Unit = props(_.talking_shit)
   def waits: Unit = props(_.wait_duration)
   def instructs: Unit = println( ss.last.cats.map(_.probs.count(_.instructed)).sum )
+  def overs: Unit = println(
+    ss.map(_.overrides).mkString("\n")
+  )
 
   def set(cati: Int, probi: Int, prob: js.Tuple2[Int, Int]): Unit =
     dispatch(app.override_prob(cati, probi, prob))

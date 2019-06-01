@@ -24,8 +24,15 @@
         margin-top: 1em;
         vertical-align: top;
       }
-      #panel > .container {
-        display: inline-block;
+      #panel > .left {
+        float: left;
+        clear: left;
+        width: 30%;
+        font-size: 2em;
+      }
+      #panel > .right {
+        width: 60%;
+        margin-left: 35%;
       }
       #panel { border: none }
       #display {
@@ -35,10 +42,8 @@
       }
       #sleeping_display {
         text-align: center;
-        font-size: 2em;
         border-color: limegreen;
         color: #c070a0;
-        width: 10%;
       }
       #talking_shit_display {
         width: 1%;
@@ -89,6 +94,9 @@
       .category > .values > .value.instructed {
         color: #e9a83b
       }
+      .category > .values > .value.overriden {
+        color: #88e989;
+      }
       .category > .name.instructed {
         color: #e9503c;
       }
@@ -97,11 +105,15 @@
   <body>
     <div class="container" id="display"></div>
     <div class="container" id="panel">
-      <div class="container" id="sleeping_display"></div>
-      <div class="container" id="talking_shit_display"
-           onclick="console.log('hi')"
+      <div class="container left" id="sleeping_display"></div>
+      <div class="container left" id="talking_shit_display"
+           onclick="(() => {
+             console.log('hi')
+             console.log(v.toggle)
+             v.toggle()
+           })()"
       ></div>
-      <div class="container" id="probabilities"></div>
+      <div class="container right" id="probabilities"></div>
     </div>
     <div class="container" id="logstash"></div>
   </body>

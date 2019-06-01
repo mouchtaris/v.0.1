@@ -2,7 +2,7 @@ package v
 
 import scala.language.implicitConversions
 import org.scalajs.{dom ⇒ jsdom}
-import ModDeco.{ModDeco ⇒ ModDecoration}
+import ModDeco.{ModDecoration ⇒ ModDecoration}
 import jsdom.{Window, document, html}
 
 import scala.scalajs.js

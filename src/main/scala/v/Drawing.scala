@@ -2,18 +2,20 @@ package v
 
 object Drawing {
   final val INSTRUCTED = "instructed"
+  final val OVERRIDEN = "overriden"
 }
 
 trait Drawing {
   this: Main ⇒
   import Drawing.INSTRUCTED
+  import Drawing.OVERRIDEN
   import reducers.State
 
   def draw_categories(state: State): Unit = {
     while (probabilities_display.firstChild != null)
       probabilities_display.removeChild(probabilities_display.firstChild)
 
-    the_state.cats.zipWithIndex.foreach {
+    state.cats.zipWithIndex.foreach {
       case (cat, cati) ⇒
         probabilities_display.appendChild {
           dom.div("category") { cont ⇒
@@ -27,6 +29,11 @@ trait Drawing {
                   if (prob.instructed) {
                     name.classList.add(INSTRUCTED)
                     value_elem.classList.add(INSTRUCTED)
+                    if (state.wait_duration == 0)
+                      say(s"${cat.name}: ${prob.name}")
+                  }
+                  if (prob.overriden) {
+                    value_elem.classList.add(OVERRIDEN)
                   }
                   cont.appendChild(value_elem)
               }
@@ -36,11 +43,11 @@ trait Drawing {
     }
   }
 
-  def draw_talking_shit_display(): Unit = {
+  def draw_talking_shit_display(state: State): Unit = {
     val on = "on"
     val off = "off"
     val (add, remove) =
-      if (the_state.talking_shit) (on, off)
+      if (state.talking_shit) (on, off)
       else (off, on)
 
     import talking_shit_display.classList
@@ -50,9 +57,9 @@ trait Drawing {
 
   def draw(state: State): Unit = {
     display.innerText = s"Hello, V.0.1. Fuck you. Today's lucky number is: ${getRandomInt(10)}"
-    sleeping_display.innerText = the_state.wait_duration.toString
+    sleeping_display.innerText = state.wait_duration.toString
     draw_categories(state)
-    draw_talking_shit_display()
+    draw_talking_shit_display(state)
   }
 }
 

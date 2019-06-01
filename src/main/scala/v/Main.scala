@@ -28,7 +28,6 @@ class Main extends AnyRef
   val app = new reducers.app(this)
 
   val logstash = mutable.Buffer.empty[LogEntry]
-  def the_state: State = app.store.state
 
   val duration_min = 5
   val duration_span = 10
@@ -84,6 +83,15 @@ object Main {
       try {
         val mane = new Main()
         Exports.ctrl_ = Control(mane)
+        ;{
+          import mane.app._
+          import store.dispatch
+
+          dispatch(init)
+          //dispatch(set_talking_shit(true))
+          dispatch(override_prob(5, 4, 1 → 5))
+          dispatch(tick)
+        }
       }
       catch {
         case ex: java.util.NoSuchElementException ⇒

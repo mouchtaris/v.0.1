@@ -2,6 +2,7 @@ package v
 package reducers
 
 import scalajs.js
+import ModDeco.ModDecoration
 
 final case class Prob(
   name: String,
@@ -19,7 +20,7 @@ final case class Group(
 final case class State(
   wait_duration: Int = 0,
   talking_shit: Boolean = false,
-  overrides: Vector[(Int, Int, Rational[Int])] = Vector.empty,
+  overrides: Map[Int, Map[Int, Rational[Int]]] = Map.empty,
   cats: Vector[Group] = Vector.empty,
   instructions: Vector[(Int, Int)] = Vector.empty,
 ) {
@@ -36,6 +37,46 @@ final case class State(
           .map { cats2 ⇒ copy(cats = cats2) }
       }
       .getOrElse(this)
+
+  def add_override(j: Int, i: Int, prob: Rational[Int]): State = {
+    val cat = overrides.getOrElse(j, Map.empty)
+    val over = cat.getOrElse(i, Rational.zero[Int])
+    val cat2 = cat.updated(i, prob)
+    val over2 = overrides.updated(j, cat2)
+    val state2 = copy(overrides = over2)
+    state2
+  }
+
+  def normalize: State = {
+    val cats2 = overrides
+      .map {
+        case (oj, vals) ⇒
+          cats
+            .lift(oj)
+            .map { cat ⇒
+              val sum = vals.values.sum
+              val rem = Rational(1, 1) + -sum
+              val part = (Rational(1, cat.probs.size - vals.size) * rem).norm
+              println(s"sum=$sum rem=$rem part=$part")
+              val clean_probs = cat.probs.map { _ copy (prob = part) }
+              val probs2 = vals.foldLeft(clean_probs) {
+                case (probs, (oi, or)) ⇒
+                  val prev = probs(oi)
+                  val prob2 = prev.copy(prob = or)
+                  probs.updated(oi, prob2)
+              }
+              val cat2 = cat.copy(probs = probs2)
+              (oj, cat2)
+            }
+      }
+      .foldLeft(cats) { (cats, catopt: Option[(Int, Group)]) ⇒
+        catopt
+          .map { case (oj, cat2) ⇒ cats.updated(oj, cat2) }
+          .getOrElse(cats)
+      }
+
+    copy(cats = cats2)
+  }
 }
 
 trait Action extends redux.Command[State] {
@@ -78,6 +119,11 @@ final class app(mane: Main) {
       state.copy(talking_shit = value)
   }
 
+  final case object toggle_talking extends Action {
+    override def apply(state: State): State =
+      set_talking_shit(!state.talking_shit)(state)
+  }
+
   final case class set_wait(value: Int) extends Action {
     override def apply(state: State): State =
       state.copy(wait_duration = value)
@@ -85,9 +131,10 @@ final class app(mane: Main) {
 
   final case class override_prob(cati: Int, probi: Int, prob: (Int, Int)) extends Action {
     override def apply(state: State): State =
-      state.copy(
-        overrides = state.overrides :+ (cati, probi, Rational(prob._1, prob._2))
-      )
+      state
+        .add_override(cati, probi, Rational(prob._1, prob._2))
+        .prob_mod(cati, probi, _.copy(overriden = true))
+        .normalize
   }
 
   final case class set_instructed(cati: Int, probi: Int) extends Action {
@@ -108,10 +155,12 @@ final class app(mane: Main) {
           timeout = 1000
         )
 
-      val cati = mane.getRandomInt(state.cats.size)
-      val probi = mane.getRandomInt(state.cats(cati).probs.size)
-
       val mod = if (state.wait_duration == 0) {
+        val cati = mane.getRandomInt(state.cats.size)
+        val probi = mane.getRandomInt(state.cats(cati).probs.size)
+        val cat = state.cats(cati)
+        val prob = cat.probs(probi)
+
         (set_wait(mane.get_random_wait()).apply _)
           .andThen { set_instructed(cati, probi).apply }
       }
@@ -122,6 +171,14 @@ final class app(mane: Main) {
       mane.draw(result)
       result
     }
+  }
+
+  case object tick_if_talking extends Action {
+    override def apply(state: State): State =
+      if (state.talking_shit)
+        tick(state)
+      else
+        state
   }
 
 }
