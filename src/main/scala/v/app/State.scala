@@ -11,6 +11,8 @@ final case class State(
   group_overrides: Map[Int, Rational[Int]] = Map.empty,
   cats: Group[Group[Prob]] = Group("cats", Rational.one[Int]),
   instructions: Vector[(Int, Int)] = Vector.empty,
+  selected_j: Int = 0,
+  selected_i: Int = 0,
 ) {
   def prob_mod(j: Int, i: Int, mod: Prob ⇒ Prob): State =
     cats.get(j)

@@ -23,6 +23,8 @@ class Main extends AnyRef
   val sleeping_display = dom("sleeping_display").get
   val probabilities_display = dom("probabilities").get
   val talking_shit_display = dom("talking_shit_display").get
+  val selection_j_display = dom("j").get
+  val selection_i_display = dom("i").get
 
   val app = new v.app.app(this)
 

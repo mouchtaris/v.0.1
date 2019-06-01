@@ -65,11 +65,17 @@ trait Drawing {
     classList.add(add)
   }
 
+  def draw_selections(state: State): Unit = {
+    selection_i_display.innerText = state.selected_i.toString
+    selection_j_display.innerText = state.selected_j.toString
+  }
+
   def draw(state: State): Unit = {
     display.innerText = s"Hello, V.0.1. Fuck you. Today's lucky number is: ${getRandomInt(10)}"
     sleeping_display.innerText = state.wait_duration.toString
     draw_categories(state)
     draw_talking_shit_display(state)
+    draw_selections(state)
   }
 }
 

@@ -97,6 +97,7 @@ final class app(mane: Main) {
 
         (set_wait(mane.get_random_wait()).apply _)
           .andThen { set_instructed(cati, probi).apply }
+          .andThen { _ copy (selected_j = cati, selected_i = probi) }
       }
       else
         set_wait(state.wait_duration - 1).apply _

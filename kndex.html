@@ -126,6 +126,10 @@
       .overriden .probability {
         color: #e98559;
       }
+      #selections {
+        background-color: #b2d6e9;
+      }
+      #selections > div::before { content: attr(id) ":"; }
     </style>
   </head>
   <body>
@@ -140,6 +144,10 @@
            })()"
       >
            CLICK ME!
+      </div>
+      <div class="container left" id="selections">
+          <div id="j"> WAT </div>
+          <div id="i"> WOT </div>
       </div>
       <div class="container right" id="probabilities"></div>
     </div>
