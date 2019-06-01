@@ -5,6 +5,7 @@
     <style type="text/css">
       body {
         background-color: #202020;
+        font-family: "Andale Mono";
       }
       .container::before {
         content: attr(id);
@@ -27,12 +28,12 @@
       #panel > .left {
         float: left;
         clear: left;
-        width: 30%;
+        width: 10%;
         font-size: 2em;
       }
       #panel > .right {
-        width: 60%;
-        margin-left: 35%;
+        width: 80%;
+        margin-left: 15%;
       }
       #panel { border: none }
       #display {
@@ -70,7 +71,6 @@
       .category {
         border: 1px dashed #606060;
         color: #6892e9;
-        font-family: sans-serif;
         font-size: .8em;
       }
       .category > .name,
@@ -88,7 +88,7 @@
       .category > .values > .value {
         display: inline-block;
         border-right: 2px double #e9a5af;
-        padding: .2em;
+        padding: .4em;
         width: 20%;
       }
       .category > .values > .value.instructed {
@@ -99,6 +99,21 @@
       }
       .category > .name.instructed {
         color: #e9503c;
+      }
+
+      .probability::before {
+        content: ' [';
+      }
+      .probability::after {
+        content: '] ';
+      }
+      .probability {
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #909090;
+      }
+      .overriden .probability {
+        color: #e98559;
       }
     </style>
   </head>

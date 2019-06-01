@@ -52,6 +52,7 @@ object dom {
     implicit def stringToName[T](name: String): Name[T] = () ⇒ name
     implicit val div: Name[html.Div] = "div"
     implicit val pre: Name[html.Pre] = "pre"
+    implicit val span: Name[html.Span] = "span"
   }
 
   //noinspection SpellCheckingInspection
@@ -75,6 +76,7 @@ object dom {
 
   def div: Creator[jsdom.html.Div] = ()
   def pre: Creator[jsdom.html.Pre] = ()
+  def span: Creator[jsdom.html.Span] = ()
 }
 
 

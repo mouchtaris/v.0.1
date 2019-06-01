@@ -3,12 +3,14 @@ package v
 object Drawing {
   final val INSTRUCTED = "instructed"
   final val OVERRIDEN = "overriden"
+  final val PROBABILITY = "probability"
 }
 
 trait Drawing {
   this: Main ⇒
   import Drawing.INSTRUCTED
   import Drawing.OVERRIDEN
+  import Drawing.PROBABILITY
   import v.app.State
 
   def draw_categories(state: State): Unit = {
@@ -19,13 +21,19 @@ trait Drawing {
       case (cat, cati) ⇒
         probabilities_display.appendChild {
           dom.div("category") { cont ⇒
-            val name = dom.div("name")(_.innerText = s"$cati:${cat.name}")
+            val name = dom.div("name") { name ⇒
+              name.innerText = s"$cati :: ${cat.name}"
+              name appendChild dom.span(PROBABILITY)(_.innerText = s"${cat.prob}")
+            }
             cont appendChild name
 
             cont appendChild dom.div("values") { cont ⇒
               cat.foreach {
                 case (prob, probi) ⇒
-                  val value_elem = dom.div("value")(_.innerText = s"[$probi] ${prob.name} ${prob.prob}")
+                  val value_elem = dom.div("value") { value_elem ⇒
+                    value_elem.innerText = s"$probi :: ${prob.name}"
+                    value_elem appendChild dom.span(PROBABILITY)(_.innerText = s"${prob.prob}")
+                  }
                   if (prob.instructed) {
                     name.classList.add(INSTRUCTED)
                     value_elem.classList.add(INSTRUCTED)
