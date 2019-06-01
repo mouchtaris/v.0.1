@@ -3,6 +3,41 @@ package reducers
 
 import scalajs.js
 
+final case class Prob(
+  name: String,
+  prob: Rational[Int],
+  instructed: Boolean = false,
+  overriden: Boolean = false,
+)
+
+final case class Group(
+  name: String,
+  probs: Vector[Prob],
+)
+
+@js.annotation.JSExportAll
+final case class State(
+  wait_duration: Int = 0,
+  talking_shit: Boolean = false,
+  overrides: Vector[(Int, Int, Rational[Int])] = Vector.empty,
+  cats: Vector[Group] = Vector.empty,
+  instructions: Vector[(Int, Int)] = Vector.empty,
+) {
+  def prob_mod(j: Int, i: Int, mod: Prob ⇒ Prob): State =
+    cats.lift(j)
+      .flatMap { cat: Group ⇒
+        cat.probs.lift(i)
+          .map(mod)
+          .map {
+            cat.probs.updated(i, _)
+          }
+          .map { probs ⇒ cat.copy(probs = probs) }
+          .map { cat2 ⇒ cats.updated(j, cat2) }
+          .map { cats2 ⇒ copy(cats = cats2) }
+      }
+      .getOrElse(this)
+}
+
 trait Action extends redux.Command[State] {
   def apply(state: State): State
   def toString: String
@@ -13,53 +48,28 @@ final class app(mane: Main) {
 
   val store =
     redux.Store[Action, State](
-      mane.make_state(),
+      State(),
       Seq(redux.reduce_commands()),
     )
 
   import store.dispatch
 
   case object init extends Action {
-    override def apply(state: State): State =
-      state.copy(wait_duration = mane.get_random_wait())
-  }
-
-  case object tick extends Action {
     override def apply(state: State): State = {
-      if (state.talking_shit)
-        dom.jsg.setTimeout(
-          () ⇒ dispatch(tick),
-          timeout = 1000
-        )
-
-      def probs2 = {
-        val selected_cat = mane.getRandomInt(state.probs.size)
-        val cat = state.probs(selected_cat)
-        val selected_prob = mane.getRandomInt(cat.probs.size)
-
-        state.probs.zipWithIndex.map {
-          case (cat, cati) ⇒
-            cat.copy(
-              instructed = cati == selected_cat,
-              probs = cat.probs.zipWithIndex.map {
-                case (prob, probi) ⇒
-                  prob.copy(
-                    instructed = cati == selected_cat && probi == selected_prob
-                  )
-              })
+      val cats2 = cats
+        .zipWithIndex.map {
+          case ((cat_name, probs_names), cati) ⇒
+            val probs = probs_names.zipWithIndex.map {
+              case (prob_name, probi) ⇒
+                Prob(name = prob_name, prob = Rational(1, probs_names.size))
+            }
+            Group(
+              name = cat_name,
+              probs = probs
+            )
         }
-      }
-
-      val result = if (state.wait_duration == 0) {
-        (set_wait(mane.get_random_wait()).apply _)
-          .andThen { _.copy(probs = probs2) }
-          .apply(state)
-      }
-      else
-        set_wait(state.wait_duration - 1)(state)
-
-      mane.draw(result)
-      result
+        .toVector
+      state.copy(cats = cats2)
     }
   }
 
@@ -73,21 +83,45 @@ final class app(mane: Main) {
       state.copy(wait_duration = value)
   }
 
-  final case class mod_prob(cati: Int, probi: Int, mod: Prob ⇒ Prob) extends Action {
-    override def apply(state: State): State = {
-      val cat = state.probs(cati)
-      val prev = cat.probs(probi)
-      state.copy(probs =
-        state.probs.updated(
-          cati,
-          cat.copy(probs =
-            cat.probs.updated(
-              probi,
-              mod(prev)
-            )
-          )
-        )
+  final case class override_prob(cati: Int, probi: Int, prob: (Int, Int)) extends Action {
+    override def apply(state: State): State =
+      state.copy(
+        overrides = state.overrides :+ (cati, probi, Rational(prob._1, prob._2))
       )
+  }
+
+  final case class set_instructed(cati: Int, probi: Int) extends Action {
+    override def apply(state: State): State = {
+      val s1 = state.prob_mod(cati, probi, _.copy(instructed = true))
+      val s2 = state.instructions.lastOption
+        .map { case (j, i) ⇒ s1.prob_mod(j, i, _.copy(instructed = false)) }
+        .getOrElse(s1)
+      s2.copy(instructions = s2.instructions :+ (cati, probi))
     }
   }
+
+  case object tick extends Action {
+    override def apply(state: State): State = {
+      if (state.talking_shit)
+        dom.jsg.setTimeout(
+          () ⇒ dispatch(tick),
+          timeout = 1000
+        )
+
+      val cati = mane.getRandomInt(state.cats.size)
+      val probi = mane.getRandomInt(state.cats(cati).probs.size)
+
+      val mod = if (state.wait_duration == 0) {
+        (set_wait(mane.get_random_wait()).apply _)
+          .andThen { set_instructed(cati, probi).apply }
+      }
+      else
+        set_wait(state.wait_duration - 1).apply _
+
+      val result = mod(state)
+      mane.draw(result)
+      result
+    }
+  }
+
 }

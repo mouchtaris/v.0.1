@@ -6,6 +6,7 @@ import dom.SpeechSynthesisUtterance
 import dom.speechSynthesis
 import dom.Date
 import dom.jsg
+import reducers.State
 
 @js.annotation.JSExportAll
 class Main extends AnyRef
@@ -73,21 +74,6 @@ class Main extends AnyRef
     log_entry(entry)
     say(s"$cat: $value")
     update_sleeping(wait)
-  }
-
-  def make_state(): State = {
-    State(
-      wait_duration = get_random_wait(),
-      probs = cats
-        .map {
-          case (cat_name, vals) ⇒
-            Prob.Group(
-              name = cat_name,
-              probs = vals.map { v ⇒ Prob(over = vals.size, name = v) }
-            )
-        }
-        .toVector
-    )
   }
 }
 

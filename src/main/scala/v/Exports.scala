@@ -1,6 +1,8 @@
 package v
 import scalajs.js
 
+import reducers.State
+
 @js.annotation.JSExportTopLevel("v")
 @js.annotation.JSExportAll
 object Exports {
@@ -27,7 +29,8 @@ object Exports {
     }
   def talks: Unit = props(_.talking_shit)
   def waits: Unit = props(_.wait_duration)
+  def instructs: Unit = println( ss.last.cats.map(_.probs.count(_.instructed)).sum )
 
-  def set(cati: Int, probi: Int, prob: Int): Unit =
-    dispatch(app.mod_prob(cati, probi, _.copy(over = prob)))
+  def set(cati: Int, probi: Int, prob: js.Tuple2[Int, Int]): Unit =
+    dispatch(app.override_prob(cati, probi, prob))
 }
