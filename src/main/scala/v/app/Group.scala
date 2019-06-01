@@ -5,6 +5,7 @@ final case class Group[T <: Probable](
   name: String,
   override val prob: Rational[Int],
   items_ : Vector[T] = Vector.empty,
+  overriden: Boolean = false,
 )
   extends AnyRef
   with Probable

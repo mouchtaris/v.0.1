@@ -55,9 +55,17 @@ final class app(mane: Main) {
   final case class override_prob(cati: Int, probi: Int, prob: (Int, Int)) extends Action {
     override def apply(state: State): State =
       state
-        .add_override(cati, probi, Rational(prob._1, prob._2))
+        .add_override(cati, probi, Rational(prob))
         .prob_mod(cati, probi, _.copy(overriden = true))
         .normalize
+  }
+
+  final case class override_group_prob(cati: Int, prob: (Int, Int)) extends Action {
+    override def apply(state: State): State =
+      state
+        .add_group_override(cati, Rational(prob))
+        .cat_mod(cati, _.copy(overriden = true))
+        .normalize_groups
   }
 
   final case class set_instructed(cati: Int, probi: Int) extends Action {

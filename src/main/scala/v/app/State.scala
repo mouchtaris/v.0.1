@@ -8,6 +8,7 @@ final case class State(
   wait_duration: Int = 0,
   talking_shit: Boolean = false,
   overrides: Map[Int, Map[Int, Rational[Int]]] = Map.empty,
+  group_overrides: Map[Int, Rational[Int]] = Map.empty,
   cats: Group[Group[Prob]] = Group("cats", Rational.one[Int]),
   instructions: Vector[(Int, Int)] = Vector.empty,
 ) {
@@ -21,6 +22,13 @@ final case class State(
       }
       .getOrElse(this)
 
+  def cat_mod(j: Int, mod: Group[Prob] ⇒ Group[Prob]): State =
+    cats.get(j)
+      .map(mod)
+      .map { cat ⇒ cats.updated(j, cat) }
+      .map { cats2 ⇒ copy(cats = cats2) }
+      .getOrElse(this)
+
   def add_override(j: Int, i: Int, prob: Rational[Int]): State = {
     val cat = overrides.getOrElse(j, Map.empty)
     val over = cat.getOrElse(i, Rational.zero[Int])
@@ -30,6 +38,11 @@ final case class State(
     state2
   }
 
+  def add_group_override(j: Int, prob: Rational[Int]): State = {
+    val over2 = group_overrides.updated(j, prob)
+    copy(group_overrides = over2)
+  }
+
   def normalize: State = {
     val cats2 = overrides
       .map {
@@ -37,15 +50,16 @@ final case class State(
           cats
             .get(oj)
             .map { cat ⇒
-              val sum = vals.values.sum
-              val rem = Rational(1, 1) + -sum
+              val sum = vals.values.sum.norm
+              val rem = (Rational.one[Int] + -sum).norm
               val part = (Rational(1, cat.size - vals.size) * rem).norm
-              println(s"sum=$sum rem=$rem part=$part")
+              val lcm = (vals.values.toVector :+ part).foldLeft(Rational.one[Int])(_ lcmrat _)
+              println(s"sum=$sum lcm=$lcm rem=$rem part=$part")
               val clean_probs = cat.map { _ copy (prob = part) }
               val probs2 = vals.foldLeft(clean_probs) {
                 case (probs, (oi, or)) ⇒
                   val prev = probs(oi)
-                  val prob2 = prev.copy(prob = or)
+                  val prob2 = prev.copy(prob = or.modlcm(lcm.o))
                   probs.updated(oi, prob2)
               }
               val cat2 = cat.updated(probs2)
@@ -58,6 +72,24 @@ final case class State(
           .getOrElse(cats)
       }
 
+    copy(cats = cats2)
+  }
+
+  def normalize_groups: State = {
+    import Rational.one
+    val sum = group_overrides.values.sum.norm
+    val rem = (one[Int] + -sum).norm
+    val part = (Rational(1, cats.size - group_overrides.size) * rem).norm
+    val lcm = (group_overrides.values.toVector :+ part).foldLeft(one[Int])(_ lcmrat _)
+    println(s"sum=$sum lcm=$lcm rem=$rem part=$part")
+    val clean_probs = cats.map { _ copy (prob = part) }
+    val probs2 = group_overrides.foldLeft(clean_probs) {
+      case (probs, (oj, or)) ⇒
+        val prev = probs.apply(oj)
+        val prob2 = prev.copy(prob = or.modlcm(lcm.o))
+        probs.updated(oj, prob2)
+    }
+    val cats2 = cats.updated(probs2)
     copy(cats = cats2)
   }
 }

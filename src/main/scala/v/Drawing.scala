@@ -24,6 +24,8 @@ trait Drawing {
             val name = dom.div("name") { name ⇒
               name.innerText = s"$cati :: ${cat.name}"
               name appendChild dom.span(PROBABILITY)(_.innerText = s"${cat.prob}")
+              if (cat.overriden)
+                name.classList.add(OVERRIDEN)
             }
             cont appendChild name
 

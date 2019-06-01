@@ -38,6 +38,9 @@ object Exports {
     ss.map(_.overrides).mkString("\n")
   )
 
-  def set(cati: Int, probi: Int, prob: js.Tuple2[Int, Int]): Unit =
-    dispatch(app.override_prob(cati, probi, prob))
+  def set(cati: Int, probi: Int, probu: Int, probo: Int): Unit =
+    dispatch(app.override_prob(cati, probi, (probu, probo)))
+
+  def setg(cati: Int, probu: Int, probo: Int): Unit =
+    dispatch(app.override_group_prob(cati, (probu, probo)))
 }

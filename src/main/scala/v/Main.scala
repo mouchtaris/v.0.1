@@ -89,6 +89,7 @@ object Main {
           dispatch(init)
           //dispatch(set_talking_shit(true))
           dispatch(override_prob(5, 4, 1 → 5))
+          dispatch(override_group_prob(5, 1 → 3))
           dispatch(tick)
         }
       }

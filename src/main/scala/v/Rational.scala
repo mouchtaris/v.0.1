@@ -55,10 +55,15 @@ object Rational {
   }
 
   implicit def numeric[T: Integral]: RationalNumeric[T] = new RationalNumeric[T]()
+
+  def apply[T: Integral](p: (T, T)): Rational[T] =
+    new Rational[T](p._1, p._2)
 }
 
 final case class Rational[T: Integral] private (u: T, o: T) {
   import Integral.Implicits.infixIntegralOps
+  private[this] val int: Integral[T] = implicitly
+  import int.one
 
   override def toString: String =
     s"$u/$o"
@@ -68,11 +73,18 @@ final case class Rational[T: Integral] private (u: T, o: T) {
     Rational(u / g, o / g)
   }
 
+  def lcm(other: Rational[T]): T =
+    Rational.lcm(o, other.o)
+
+  def lcmrat(other: Rational[T]): Rational[T] =
+    Rational(one, lcm(other))
+
+
   def norm(other: Rational[T]): (Rational[T], Rational[T]) = {
-    val lcm = Rational.lcm(o, other.o)
+    val lcm = this.lcm(other)
     (
-      this mod (lcm / o),
-      other mod (lcm / other.o)
+      this modlcm lcm,
+      other modlcm lcm,
     )
   }
 
@@ -95,8 +107,10 @@ final case class Rational[T: Integral] private (u: T, o: T) {
   def *(other: Rational[T]): Rational[T] =
     Rational(u * other.u, o * other.o)
 
-  def mod(mod: T): Rational[T] =
+  def modlcm(lcm: T): Rational[T] = {
+    val mod = lcm / o
     Rational(mod * u, mod * o)
+  }
 
   def quot: T =
     u / o
