@@ -9,13 +9,13 @@ trait Drawing {
   this: Main ⇒
   import Drawing.INSTRUCTED
   import Drawing.OVERRIDEN
-  import reducers.State
+  import v.app.State
 
   def draw_categories(state: State): Unit = {
     while (probabilities_display.firstChild != null)
       probabilities_display.removeChild(probabilities_display.firstChild)
 
-    state.cats.zipWithIndex.foreach {
+    state.cats.foreach {
       case (cat, cati) ⇒
         probabilities_display.appendChild {
           dom.div("category") { cont ⇒
@@ -23,7 +23,7 @@ trait Drawing {
             cont appendChild name
 
             cont appendChild dom.div("values") { cont ⇒
-              cat.probs.zipWithIndex.foreach {
+              cat.foreach {
                 case (prob, probi) ⇒
                   val value_elem = dom.div("value")(_.innerText = s"[$probi] ${prob.name} ${prob.prob}")
                   if (prob.instructed) {

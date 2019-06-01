@@ -6,7 +6,6 @@ import dom.SpeechSynthesisUtterance
 import dom.speechSynthesis
 import dom.Date
 import dom.jsg
-import reducers.State
 
 @js.annotation.JSExportAll
 class Main extends AnyRef
@@ -25,7 +24,7 @@ class Main extends AnyRef
   val probabilities_display = dom("probabilities").get
   val talking_shit_display = dom("talking_shit_display").get
 
-  val app = new reducers.app(this)
+  val app = new v.app.app(this)
 
   val logstash = mutable.Buffer.empty[LogEntry]
 

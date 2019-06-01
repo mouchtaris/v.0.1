@@ -3,7 +3,7 @@ package v
 import scalajs.js
 import js.JSConverters._
 
-import reducers.State
+import app.State
 
 @js.annotation.JSExportAll
 final case class Control(mane: Main) {

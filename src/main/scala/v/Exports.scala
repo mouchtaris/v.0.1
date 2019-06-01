@@ -1,7 +1,8 @@
 package v
 import scalajs.js
 
-import reducers.State
+import app.State
+import app.Action
 
 @js.annotation.JSExportTopLevel("v")
 @js.annotation.JSExportAll
@@ -11,7 +12,7 @@ object Exports {
 
   def ss = ctrl.states
   def app = ctrl_.mane.app
-  def dispatch(action: reducers.Action) = {
+  def dispatch(action: Action) = {
     Trace("kai omos dispatching") {
       app.store.dispatch(action)
     }
@@ -33,7 +34,6 @@ object Exports {
     }
   def talks: Unit = props(_.talking_shit)
   def waits: Unit = props(_.wait_duration)
-  def instructs: Unit = println( ss.last.cats.map(_.probs.count(_.instructed)).sum )
   def overs: Unit = println(
     ss.map(_.overrides).mkString("\n")
   )
