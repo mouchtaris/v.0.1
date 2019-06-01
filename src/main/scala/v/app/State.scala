@@ -13,6 +13,8 @@ final case class State(
   instructions: Vector[(Int, Int)] = Vector.empty,
   selected_j: Int = 0,
   selected_i: Int = 0,
+  min_wait: Int = 5,
+  wait_span: Int = 10,
 ) {
   def prob_mod(j: Int, i: Int, mod: Prob ⇒ Prob): State =
     cats.get(j)
@@ -37,6 +39,20 @@ final case class State(
     val cat2 = cat.updated(i, prob)
     val over2 = overrides.updated(j, cat2)
     val state2 = copy(overrides = over2)
+    state2
+  }
+
+  def remove_override(j: Int, i: Int): State = {
+    val cat = overrides.getOrElse(j, Map.empty)
+    val cat2 = cat - i
+    val over2 = overrides.updated(j, cat2)
+    val state2 = copy(overrides = over2)
+    state2
+  }
+
+  def remove_group_override(i: Int): State = {
+    val over2 = group_overrides - i
+    val state2 = copy(group_overrides = over2)
     state2
   }
 

@@ -76,7 +76,7 @@ object cats extends Map[String, Vector[String]] {
       "xl",
     ),
     "speed" -> Vector(
-      "a.f.a.p",
+      "as fast as possible",
       "cockain",
       "fast",
       "hurry",

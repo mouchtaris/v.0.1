@@ -14,13 +14,18 @@ final class app(mane: Main) {
 
   import store.dispatch
 
+  final val JOKER = "FUCK YOU"
+
+  def get_random_wait(state: State): Int =
+    state.min_wait + mane.getRandomInt(state.wait_span)
+
   case object init extends Action {
     override def apply(state: State): State = {
       val cats2 = cats
         .zipWithIndex
         .map {
           case ((cat_name, probs_names), cati) ⇒
-            val probs = probs_names.zipWithIndex.map {
+            val probs = (probs_names :+ JOKER).zipWithIndex.map {
               case (prob_name, probi) ⇒
                 Prob(name = prob_name, prob = Rational(1, probs_names.size))
             }
@@ -60,11 +65,27 @@ final class app(mane: Main) {
         .normalize
   }
 
+  final case class deoverride_prob(cati: Int, probi: Int) extends Action {
+    override def apply(state: State): State =
+      state
+        .remove_override(cati, probi)
+        .prob_mod(cati, probi, _.copy(overriden = false))
+        .normalize
+  }
+
   final case class override_group_prob(cati: Int, prob: (Int, Int)) extends Action {
     override def apply(state: State): State =
       state
         .add_group_override(cati, Rational(prob))
         .cat_mod(cati, _.copy(overriden = true))
+        .normalize_groups
+  }
+
+  final case class deoverride_group_prob(cati: Int) extends Action {
+    override def apply(state: State): State =
+      state
+        .remove_group_override(cati)
+        .cat_mod(cati, _.copy(overriden = false))
         .normalize_groups
   }
 
@@ -82,6 +103,13 @@ final class app(mane: Main) {
     }
   }
 
+  final case class say(phrase: String) extends Action {
+    override def apply(state: State): State = {
+      mane.say(phrase)
+      state
+    }
+  }
+
   case object tick extends Action {
     override def apply(state: State): State = {
       if (state.talking_shit)
@@ -91,11 +119,11 @@ final class app(mane: Main) {
         )
 
       val mod = if (state.wait_duration == 0) {
-        val mod0 = set_wait(mane.get_random_wait()).apply _
+        val mod0 = set_wait(get_random_wait(state)).apply _
         val (cati, cat) = state.cats.rand(mane.getRandomInt)
         val (probi, _) = cat.rand(mane.getRandomInt)
 
-        (set_wait(mane.get_random_wait()).apply _)
+        (set_wait(get_random_wait(state)).apply _)
           .andThen { set_instructed(cati, probi).apply }
           .andThen { _ copy (selected_j = cati, selected_i = probi) }
       }
@@ -116,4 +144,13 @@ final class app(mane: Main) {
         state
   }
 
+  case class set_min_sleep(value: Int) extends Action {
+    override def apply(state: State): State =
+      state.copy(min_wait = value)
+  }
+
+  case class set_sleep_span(value: Int) extends Action {
+    override def apply(state: State): State =
+      state.copy(wait_span = value)
+  }
 }

@@ -41,6 +41,21 @@ object Exports {
   def set(cati: Int, probi: Int, probu: Int, probo: Int): Unit =
     dispatch(app.override_prob(cati, probi, (probu, probo)))
 
+  def unset(cati: Int, probi: Int): Unit =
+    dispatch(app.deoverride_prob(cati, probi))
+
   def setg(cati: Int, probu: Int, probo: Int): Unit =
     dispatch(app.override_group_prob(cati, (probu, probo)))
+
+  def unsetg(cati: Int): Unit =
+    dispatch(app.deoverride_group_prob(cati))
+
+  def say(phrase: String): Unit =
+    dispatch(app.say(phrase))
+
+  def sleep_min(value: Int): Unit =
+    dispatch(app.set_min_sleep(value))
+
+  def sleep_span(value: Int): Unit =
+    dispatch(app.set_sleep_span(value))
 }

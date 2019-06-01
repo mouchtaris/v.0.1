@@ -130,12 +130,23 @@
         background-color: #b2d6e9;
       }
       #selections > div::before { content: attr(id) ":"; }
+
+      #sleep_min,
+      #sleep_max {
+        font-size: .5em;
+        border: 1px solid #909090;
+        color: #808080;
+      }
     </style>
   </head>
   <body>
     <div class="container" id="display"></div>
     <div class="container" id="panel">
-      <div class="container left" id="sleeping_display"></div>
+      <div class="container left" id="sleeping_display">
+        <div id="sleep_min"></div>
+        <div id="countdown"></div>
+        <div id="sleep_max"></div>
+      </div>
       <div class="container left" id="talking_shit_display"
            onclick="(() => {
              console.log('hi')

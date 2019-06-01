@@ -20,7 +20,9 @@ class Main extends AnyRef
 
   val display = dom("display").get
   val logstash_display = dom("logstash").get
-  val sleeping_display = dom("sleeping_display").get
+  val sleeping_display = dom("countdown").get
+  val sleeping_min_display = dom("sleep_min").get
+  val sleeping_max_display = dom("sleep_max").get
   val probabilities_display = dom("probabilities").get
   val talking_shit_display = dom("talking_shit_display").get
   val selection_j_display = dom("j").get
@@ -29,9 +31,6 @@ class Main extends AnyRef
   val app = new v.app.app(this)
 
   val logstash = mutable.Buffer.empty[LogEntry]
-
-  val duration_min = 5
-  val duration_span = 10
 
   def getRandomInt(max: Int): Int =
     floor(random() * floor(max)).toInt
@@ -50,10 +49,6 @@ class Main extends AnyRef
     sleeping_display.innerText = sec.toString
   }
 
-  def get_random_wait(): Int = {
-    duration_min + getRandomInt(duration_span)
-  }
-
   def get_random_category(): (Int, (String, Vector[String])) = {
     val i = getRandomInt(cats.size)
     val pair = cats.toIndexedSeq(i)
@@ -65,15 +60,15 @@ class Main extends AnyRef
   }
 
   val start_talking_shit: () ⇒ Unit = () ⇒ {
-    val (cati, (cat, vals)) = get_random_category()
-    val vali = getRandomInt(vals.size)
-    val value = vals(vali)
-    val wait = get_random_wait()
-    val ts = Date.now().toLong
-    val entry = LogEntry(ts, cat, value)
-    log_entry(entry)
-    say(s"$cat: $value")
-    update_sleeping(wait)
+    //val (cati, (cat, vals)) = get_random_category()
+    //val vali = getRandomInt(vals.size)
+    //val value = vals(vali)
+    //val wait = get_random_wait()
+    //val ts = Date.now().toLong
+    //val entry = LogEntry(ts, cat, value)
+    //log_entry(entry)
+    //say(s"$cat: $value")
+    //update_sleeping(wait)
   }
 }
 
@@ -89,9 +84,6 @@ object Main {
           import store.dispatch
 
           dispatch(init)
-          //dispatch(set_talking_shit(true))
-          dispatch(override_prob(5, 4, 1 → 5))
-          dispatch(override_group_prob(5, 1 → 3))
           dispatch(tick)
         }
       }
