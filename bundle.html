@@ -2019,6 +2019,9 @@ function $h_Lv_Exports$() {
   /*<skip>*/
 }
 $h_Lv_Exports$.prototype = $c_Lv_Exports$.prototype;
+$c_Lv_Exports$.prototype.select__I__I__V = (function(cati, probi) {
+  this.dispatch__Lv_app_Action__V(this.app__Lv_app_app().select__Lv_app_app$select$().apply__I__I__Lv_app_app$select(cati, probi))
+});
 $c_Lv_Exports$.prototype.$$js$exported$meth$talk__Z__O = (function(v) {
   this.talk__Z__V(v)
 });
@@ -2031,10 +2034,17 @@ $c_Lv_Exports$.prototype.init___ = (function() {
 $c_Lv_Exports$.prototype.set__I__I__I__I__V = (function(cati, probi, probu, probo) {
   this.dispatch__Lv_app_Action__V(this.app__Lv_app_app().override$undprob__Lv_app_app$override$undprob$().apply__I__I__T2__Lv_app_app$override$undprob(cati, probi, new $c_s_Tuple2$mcII$sp().init___I__I(probu, probo)))
 });
+$c_Lv_Exports$.prototype.$$js$exported$meth$select__I__I__O = (function(cati, probi) {
+  this.select__I__I__V(cati, probi)
+});
+$c_Lv_Exports$.prototype.$$js$exported$prop$select$undrandom__O = (function() {
+  this.select$undrandom__V()
+});
 $c_Lv_Exports$.prototype.state__T = (function() {
   var array = this.ctrl$und$1.states__sjs_js_Array();
   var this$2 = new $c_sjs_js_ArrayOps().init___sjs_js_Array(array);
-  return $objectToString($f_sc_IndexedSeqOptimized__last__O(this$2))
+  var this$3 = $as_Lv_app_State($f_sc_IndexedSeqOptimized__last__O(this$2));
+  return $m_sr_ScalaRunTime$().$$undtoString__s_Product__T(this$3)
 });
 $c_Lv_Exports$.prototype.$$js$exported$meth$dispatch__Lv_app_Action__O = (function(action) {
   this.dispatch__Lv_app_Action__V(action)
@@ -2155,6 +2165,9 @@ $c_Lv_Exports$.prototype.talk__Z__V = (function(v) {
 });
 $c_Lv_Exports$.prototype.$$js$exported$prop$ss__O = (function() {
   return this.ctrl$und$1.states__sjs_js_Array()
+});
+$c_Lv_Exports$.prototype.select$undrandom__V = (function() {
+  this.dispatch__Lv_app_Action__V(this.app__Lv_app_app().select$undrandom__Lv_app_app$select$undrandom$())
 });
 $c_Lv_Exports$.prototype.waits__V = (function() {
   var array = this.ctrl$und$1.states__sjs_js_Array();
@@ -2351,6 +2364,17 @@ $c_Lv_Exports$.prototype.$$js$exported$prop$app__O = (function() {
 });
 $c_Lv_Exports$.prototype.$$js$exported$prop$overs__O = (function() {
   this.overs__V()
+});
+Object.defineProperty($c_Lv_Exports$.prototype, "select_random", {
+  "get": (function() {
+    return this.$$js$exported$prop$select$undrandom__O()
+  }),
+  "configurable": true
+});
+$c_Lv_Exports$.prototype.select = (function(arg$1, arg$2) {
+  var prep0 = $uI(arg$1);
+  var prep1 = $uI(arg$2);
+  return this.$$js$exported$meth$select__I__I__O(prep0, prep1)
 });
 $c_Lv_Exports$.prototype.sleep_span = (function(arg$1) {
   var prep0 = $uI(arg$1);
@@ -2552,6 +2576,8 @@ function $c_Lv_app_app() {
   this.tick$undif$undtalking$module$1 = null;
   this.set$undmin$undsleep$module$1 = null;
   this.set$undsleep$undspan$module$1 = null;
+  this.select$module$1 = null;
+  this.select$undrandom$module$1 = null;
   this.v$app$app$$mane$f = null;
   this.store$1 = null
 }
@@ -2583,13 +2609,30 @@ $c_Lv_app_app.prototype.say$lzycompute$1__p1__V = (function() {
     this.say$module$1 = new $c_Lv_app_app$say$().init___Lv_app_app(this)
   }
 });
+$c_Lv_app_app.prototype.select__Lv_app_app$select$ = (function() {
+  if ((this.select$module$1 === null)) {
+    this.select$lzycompute$1__p1__V()
+  };
+  return this.select$module$1
+});
 $c_Lv_app_app.prototype.deoverride$undgroup$undprob$lzycompute$1__p1__V = (function() {
   if ((this.deoverride$undgroup$undprob$module$1 === null)) {
     this.deoverride$undgroup$undprob$module$1 = new $c_Lv_app_app$deoverride$undgroup$undprob$().init___Lv_app_app(this)
   }
 });
+$c_Lv_app_app.prototype.select$undrandom$lzycompute$1__p1__V = (function() {
+  if ((this.select$undrandom$module$1 === null)) {
+    this.select$undrandom$module$1 = new $c_Lv_app_app$select$undrandom$().init___Lv_app_app(this)
+  }
+});
 $c_Lv_app_app.prototype.get$undrandom$undwait__Lv_app_State__I = (function(state) {
   return ((state.min$undwait$1 + this.v$app$app$$mane$f.getRandomInt__I__I(state.wait$undspan$1)) | 0)
+});
+$c_Lv_app_app.prototype.select$undrandom__Lv_app_app$select$undrandom$ = (function() {
+  if ((this.select$undrandom$module$1 === null)) {
+    this.select$undrandom$lzycompute$1__p1__V()
+  };
+  return this.select$undrandom$module$1
 });
 $c_Lv_app_app.prototype.tick$lzycompute$1__p1__V = (function() {
   if ((this.tick$module$1 === null)) {
@@ -2652,6 +2695,11 @@ $c_Lv_app_app.prototype.override$undprob__Lv_app_app$override$undprob$ = (functi
     this.override$undprob$lzycompute$1__p1__V()
   };
   return this.override$undprob$module$1
+});
+$c_Lv_app_app.prototype.select$lzycompute$1__p1__V = (function() {
+  if ((this.select$module$1 === null)) {
+    this.select$module$1 = new $c_Lv_app_app$select$().init___Lv_app_app(this)
+  }
 });
 $c_Lv_app_app.prototype.set$undwait$lzycompute$1__p1__V = (function() {
   if ((this.set$undwait$module$1 === null)) {
@@ -9869,6 +9917,46 @@ var $d_Lv_app_app$say$ = new $TypeData().initClass({
 });
 $c_Lv_app_app$say$.prototype.$classData = $d_Lv_app_app$say$;
 /** @constructor */
+function $c_Lv_app_app$select$() {
+  $c_sr_AbstractFunction2.call(this);
+  this.$$outer$2 = null
+}
+$c_Lv_app_app$select$.prototype = new $h_sr_AbstractFunction2();
+$c_Lv_app_app$select$.prototype.constructor = $c_Lv_app_app$select$;
+/** @constructor */
+function $h_Lv_app_app$select$() {
+  /*<skip>*/
+}
+$h_Lv_app_app$select$.prototype = $c_Lv_app_app$select$.prototype;
+$c_Lv_app_app$select$.prototype.init___Lv_app_app = (function($$outer) {
+  if (($$outer === null)) {
+    throw $m_sjsr_package$().unwrapJavaScriptException__jl_Throwable__O(null)
+  } else {
+    this.$$outer$2 = $$outer
+  };
+  return this
+});
+$c_Lv_app_app$select$.prototype.toString__T = (function() {
+  return "select"
+});
+$c_Lv_app_app$select$.prototype.apply__O__O__O = (function(v1, v2) {
+  return this.apply__I__I__Lv_app_app$select($uI(v1), $uI(v2))
+});
+$c_Lv_app_app$select$.prototype.apply__I__I__Lv_app_app$select = (function(cati, probi) {
+  return new $c_Lv_app_app$select().init___Lv_app_app__I__I(this.$$outer$2, cati, probi)
+});
+var $d_Lv_app_app$select$ = new $TypeData().initClass({
+  Lv_app_app$select$: 0
+}, false, "v.app.app$select$", {
+  Lv_app_app$select$: 1,
+  sr_AbstractFunction2: 1,
+  O: 1,
+  F2: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1
+});
+$c_Lv_app_app$select$.prototype.$classData = $d_Lv_app_app$select$;
+/** @constructor */
 function $c_Lv_app_app$set$undmin$undsleep$() {
   $c_sr_AbstractFunction1.call(this);
   this.$$outer$2 = null
@@ -13656,6 +13744,235 @@ var $d_Lv_app_app$say = new $TypeData().initClass({
 });
 $c_Lv_app_app$say.prototype.$classData = $d_Lv_app_app$say;
 /** @constructor */
+function $c_Lv_app_app$select() {
+  $c_O.call(this);
+  this.cati$1 = 0;
+  this.probi$1 = 0;
+  this.$$outer$1 = null
+}
+$c_Lv_app_app$select.prototype = new $h_O();
+$c_Lv_app_app$select.prototype.constructor = $c_Lv_app_app$select;
+/** @constructor */
+function $h_Lv_app_app$select() {
+  /*<skip>*/
+}
+$h_Lv_app_app$select.prototype = $c_Lv_app_app$select.prototype;
+$c_Lv_app_app$select.prototype.productPrefix__T = (function() {
+  return "select"
+});
+$c_Lv_app_app$select.prototype.productArity__I = (function() {
+  return 2
+});
+$c_Lv_app_app$select.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else if (($is_Lv_app_app$select(x$1) && ($as_Lv_app_app$select(x$1).$$outer$1 === this.$$outer$1))) {
+    var select$1 = $as_Lv_app_app$select(x$1);
+    return ((this.cati$1 === select$1.cati$1) && (this.probi$1 === select$1.probi$1))
+  } else {
+    return false
+  }
+});
+$c_Lv_app_app$select.prototype.productElement__I__O = (function(x$1) {
+  switch (x$1) {
+    case 0: {
+      return this.cati$1;
+      break
+    }
+    case 1: {
+      return this.probi$1;
+      break
+    }
+    default: {
+      throw new $c_jl_IndexOutOfBoundsException().init___T(("" + x$1))
+    }
+  }
+});
+$c_Lv_app_app$select.prototype.toString__T = (function() {
+  return $m_sr_ScalaRunTime$().$$undtoString__s_Product__T(this)
+});
+$c_Lv_app_app$select.prototype.init___Lv_app_app__I__I = (function($$outer, cati, probi) {
+  this.cati$1 = cati;
+  this.probi$1 = probi;
+  if (($$outer === null)) {
+    throw $m_sjsr_package$().unwrapJavaScriptException__jl_Throwable__O(null)
+  } else {
+    this.$$outer$1 = $$outer
+  };
+  return this
+});
+$c_Lv_app_app$select.prototype.apply__Lv_app_State__Lv_app_State = (function(state) {
+  var eta$0$1 = new $c_Lv_app_app$set$undinstructed().init___Lv_app_app__I__I(this.$$outer$1, this.cati$1, this.probi$1);
+  var arg1 = eta$0$1.apply__Lv_app_State__Lv_app_State(state);
+  var x$1 = this.cati$1;
+  var x$2 = this.probi$1;
+  var x$3 = arg1.wait$undduration$1;
+  var x$4 = arg1.talking$undshit$1;
+  var x$5 = arg1.overrides$1;
+  var x$6 = arg1.group$undoverrides$1;
+  var x$7 = arg1.cats$1;
+  var x$8$2 = arg1.instructions$1;
+  var x$9 = arg1.min$undwait$1;
+  var x$10 = arg1.wait$undspan$1;
+  return new $c_Lv_app_State().init___I__Z__sci_Map__sci_Map__Lv_app_Group__sci_Vector__I__I__I__I(x$3, x$4, x$5, x$6, x$7, x$8$2, x$1, x$2, x$9, x$10)
+});
+$c_Lv_app_app$select.prototype.hashCode__I = (function() {
+  var acc = (-889275714);
+  acc = $m_sr_Statics$().mix__I__I__I(acc, this.cati$1);
+  acc = $m_sr_Statics$().mix__I__I__I(acc, this.probi$1);
+  return $m_sr_Statics$().finalizeHash__I__I__I(acc, 2)
+});
+$c_Lv_app_app$select.prototype.productIterator__sc_Iterator = (function() {
+  return new $c_sr_ScalaRunTime$$anon$1().init___s_Product(this)
+});
+function $is_Lv_app_app$select(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lv_app_app$select)))
+}
+function $as_Lv_app_app$select(obj) {
+  return (($is_Lv_app_app$select(obj) || (obj === null)) ? obj : $throwClassCastException(obj, "v.app.app$select"))
+}
+function $isArrayOf_Lv_app_app$select(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lv_app_app$select)))
+}
+function $asArrayOf_Lv_app_app$select(obj, depth) {
+  return (($isArrayOf_Lv_app_app$select(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lv.app.app$select;", depth))
+}
+var $d_Lv_app_app$select = new $TypeData().initClass({
+  Lv_app_app$select: 0
+}, false, "v.app.app$select", {
+  Lv_app_app$select: 1,
+  O: 1,
+  Lv_app_Action: 1,
+  Lv_redux$Command: 1,
+  s_Product: 1,
+  s_Equals: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1
+});
+$c_Lv_app_app$select.prototype.$classData = $d_Lv_app_app$select;
+/** @constructor */
+function $c_Lv_app_app$select$undrandom$() {
+  $c_O.call(this);
+  this.$$outer$1 = null
+}
+$c_Lv_app_app$select$undrandom$.prototype = new $h_O();
+$c_Lv_app_app$select$undrandom$.prototype.constructor = $c_Lv_app_app$select$undrandom$;
+/** @constructor */
+function $h_Lv_app_app$select$undrandom$() {
+  /*<skip>*/
+}
+$h_Lv_app_app$select$undrandom$.prototype = $c_Lv_app_app$select$undrandom$.prototype;
+$c_Lv_app_app$select$undrandom$.prototype.productPrefix__T = (function() {
+  return "select_random"
+});
+$c_Lv_app_app$select$undrandom$.prototype.productArity__I = (function() {
+  return 0
+});
+$c_Lv_app_app$select$undrandom$.prototype.init___Lv_app_app = (function($$outer) {
+  if (($$outer === null)) {
+    throw $m_sjsr_package$().unwrapJavaScriptException__jl_Throwable__O(null)
+  } else {
+    this.$$outer$1 = $$outer
+  };
+  return this
+});
+$c_Lv_app_app$select$undrandom$.prototype.productElement__I__O = (function(x$1) {
+  throw new $c_jl_IndexOutOfBoundsException().init___T(("" + x$1))
+});
+$c_Lv_app_app$select$undrandom$.prototype.toString__T = (function() {
+  return "select_random"
+});
+$c_Lv_app_app$select$undrandom$.prototype.apply__Lv_app_State__Lv_app_State = (function(state) {
+  var this$1 = state.cats$1;
+  var lcm = this$1.lcm__I();
+  var r = this.$$outer$1.v$app$app$$mane$f.getRandomInt__I__I(lcm);
+  var this$3 = this$1.items$und$1;
+  $m_sci_Vector$();
+  var bf = $m_sc_IndexedSeq$().ReusableCBF$6;
+  var x1$2 = $as_T2($as_s_Option($as_T2($as_sc_TraversableOnce($f_sc_IterableLike__zipWithIndex__scg_CanBuildFrom__O(this$3, bf)).foldLeft__O__F2__O(new $c_T2().init___O__O(0, $m_s_None$()), new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function($this, lcm$1, r$1) {
+    return (function(x0$1$2, x1$1$2) {
+      var x0$1 = $as_T2(x0$1$2);
+      var x1$1 = $as_T2(x1$1$2);
+      var x1 = new $c_T2().init___O__O(x0$1, x1$1);
+      var p2 = $as_T2(x1.$$und1$f);
+      var p3 = $as_T2(x1.$$und2$f);
+      if ((p2 !== null)) {
+        var acc_prob = p2.$$und1$mcI$sp__I();
+        var result = $as_s_Option(p2.$$und2__O());
+        if ((p3 !== null)) {
+          var item = $as_Lv_app_Probable(p3.$$und1__O());
+          var index = p3.$$und2$mcI$sp__I();
+          if (result.isDefined__Z()) {
+            return new $c_T2().init___O__O(acc_prob, result)
+          } else {
+            var acc_prob2 = ((acc_prob + $uI(item.prob__Lv_Rational().modlcm__O__Lv_Rational(lcm$1).u$1)) | 0);
+            return ((r$1 < acc_prob2) ? new $c_T2().init___O__O(0, new $c_s_Some().init___O(new $c_T2().init___O__O(index, item))) : new $c_T2().init___O__O(acc_prob2, $m_s_None$()))
+          }
+        }
+      };
+      throw new $c_s_MatchError().init___O(x1)
+    })
+  })(this$1, lcm, r)))).$$und2__O()).get__O());
+  if ((x1$2 === null)) {
+    throw new $c_s_MatchError().init___O(x1$2)
+  };
+  var cati = x1$2.$$und1$mcI$sp__I();
+  var cat = $as_Lv_app_Group(x1$2.$$und2__O());
+  var lcm$2 = cat.lcm__I();
+  var r$2 = this.$$outer$1.v$app$app$$mane$f.getRandomInt__I__I(lcm$2);
+  var this$5 = cat.items$und$1;
+  $m_sci_Vector$();
+  var bf$1 = $m_sc_IndexedSeq$().ReusableCBF$6;
+  var x1$2$1 = $as_T2($as_s_Option($as_T2($as_sc_TraversableOnce($f_sc_IterableLike__zipWithIndex__scg_CanBuildFrom__O(this$5, bf$1)).foldLeft__O__F2__O(new $c_T2().init___O__O(0, $m_s_None$()), new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function($this$1, lcm$3, r$3) {
+    return (function(x0$1$2$1, x1$1$2$1) {
+      var x0$1$1 = $as_T2(x0$1$2$1);
+      var x1$1$1 = $as_T2(x1$1$2$1);
+      var x1$3 = new $c_T2().init___O__O(x0$1$1, x1$1$1);
+      var p2$1 = $as_T2(x1$3.$$und1$f);
+      var p3$1 = $as_T2(x1$3.$$und2$f);
+      if ((p2$1 !== null)) {
+        var acc_prob$1 = p2$1.$$und1$mcI$sp__I();
+        var result$1 = $as_s_Option(p2$1.$$und2__O());
+        if ((p3$1 !== null)) {
+          var item$1 = $as_Lv_app_Probable(p3$1.$$und1__O());
+          var index$1 = p3$1.$$und2$mcI$sp__I();
+          if (result$1.isDefined__Z()) {
+            return new $c_T2().init___O__O(acc_prob$1, result$1)
+          } else {
+            var acc_prob2$1 = ((acc_prob$1 + $uI(item$1.prob__Lv_Rational().modlcm__O__Lv_Rational(lcm$3).u$1)) | 0);
+            return ((r$3 < acc_prob2$1) ? new $c_T2().init___O__O(0, new $c_s_Some().init___O(new $c_T2().init___O__O(index$1, item$1))) : new $c_T2().init___O__O(acc_prob2$1, $m_s_None$()))
+          }
+        }
+      };
+      throw new $c_s_MatchError().init___O(x1$3)
+    })
+  })(cat, lcm$2, r$2)))).$$und2__O()).get__O());
+  if ((x1$2$1 === null)) {
+    throw new $c_s_MatchError().init___O(x1$2$1)
+  };
+  var probi = x1$2$1.$$und1$mcI$sp__I();
+  return new $c_Lv_app_app$select().init___Lv_app_app__I__I(this.$$outer$1, cati, probi).apply__Lv_app_State__Lv_app_State(state)
+});
+$c_Lv_app_app$select$undrandom$.prototype.hashCode__I = (function() {
+  return 828987750
+});
+$c_Lv_app_app$select$undrandom$.prototype.productIterator__sc_Iterator = (function() {
+  return new $c_sr_ScalaRunTime$$anon$1().init___s_Product(this)
+});
+var $d_Lv_app_app$select$undrandom$ = new $TypeData().initClass({
+  Lv_app_app$select$undrandom$: 0
+}, false, "v.app.app$select_random$", {
+  Lv_app_app$select$undrandom$: 1,
+  O: 1,
+  Lv_app_Action: 1,
+  Lv_redux$Command: 1,
+  s_Product: 1,
+  s_Equals: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1
+});
+$c_Lv_app_app$select$undrandom$.prototype.$classData = $d_Lv_app_app$select$undrandom$;
+/** @constructor */
 function $c_Lv_app_app$set$undinstructed() {
   $c_O.call(this);
   this.cati$1 = 0;
@@ -14382,30 +14699,17 @@ $c_Lv_app_app$tick$.prototype.apply__Lv_app_State__Lv_app_State = (function(stat
         return new $c_Lv_app_State().init___I__Z__sci_Map__sci_Map__Lv_app_Group__sci_Vector__I__I__I__I(wait_duration, talking_shit, overrides, group_overrides, cats, instructions, selected_j, selected_i, min_wait, wait_span)
       })
     })(this, eta$0$2));
-    var eta$0$3 = new $c_Lv_app_app$set$undinstructed().init___Lv_app_app__I__I(this.$$outer$1, cati, probi);
+    var eta$0$3 = new $c_Lv_app_app$select().init___Lv_app_app__I__I(this.$$outer$1, cati, probi);
     var g = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(this$5$1, eta$0$3$1) {
       return (function(state$4$2) {
         var state$4 = $as_Lv_app_State(state$4$2);
         return eta$0$3$1.apply__Lv_app_State__Lv_app_State(state$4)
       })
     })(this, eta$0$3));
-    var mod = $f_F1__andThen__F1__F1(this$6, g).andThen__F1__F1(new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(this$6$1, cati$2, probi$2) {
-      return (function(x$8$2) {
-        var x$8 = $as_Lv_app_State(x$8$2);
-        var x$3 = x$8.wait$undduration$1;
-        var x$4 = x$8.talking$undshit$1;
-        var x$5 = x$8.overrides$1;
-        var x$6 = x$8.group$undoverrides$1;
-        var x$7 = x$8.cats$1;
-        var x$8$2$1 = x$8.instructions$1;
-        var x$9 = x$8.min$undwait$1;
-        var x$10 = x$8.wait$undspan$1;
-        return new $c_Lv_app_State().init___I__Z__sci_Map__sci_Map__Lv_app_Group__sci_Vector__I__I__I__I(x$3, x$4, x$5, x$6, x$7, x$8$2$1, cati$2, probi$2, x$9, x$10)
-      })
-    })(this, cati, probi)))
+    var mod = $f_F1__andThen__F1__F1(this$6, g)
   } else {
     var eta$0$4 = new $c_Lv_app_app$set$undwait().init___Lv_app_app__I(this.$$outer$1, (((-1) + state.wait$undduration$1) | 0));
-    var mod = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(this$7, eta$0$4$1) {
+    var mod = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(this$6$1, eta$0$4$1) {
       return (function(state$5$2) {
         var state$5 = $as_Lv_app_State(state$5$2);
         var wait_duration$1 = eta$0$4$1.value$1;
@@ -14423,8 +14727,8 @@ $c_Lv_app_app$tick$.prototype.apply__Lv_app_State__Lv_app_State = (function(stat
     })(this, eta$0$4))
   };
   var result$2 = $as_Lv_app_State(mod.apply__O__O(state));
-  var this$8 = this.$$outer$1.v$app$app$$mane$f;
-  $f_Lv_Drawing__draw__Lv_app_State__V(this$8, result$2);
+  var this$7 = this.$$outer$1.v$app$app$$mane$f;
+  $f_Lv_Drawing__draw__Lv_app_State__V(this$7, result$2);
   return result$2
 });
 $c_Lv_app_app$tick$.prototype.hashCode__I = (function() {
@@ -17584,7 +17888,7 @@ $c_Lv_cats$.prototype.seq__sc_TraversableOnce = (function() {
 $c_Lv_cats$.prototype.init___ = (function() {
   $n_Lv_cats$ = this;
   var this$4 = $m_s_package$().Vector$1;
-  var array = ["but what", "if the point", "of this life", "is just to be", "and experience all that is"];
+  var array = ["but what if", "the point of", "this life is", "just to be", "and experience ", "all that is"];
   if (($uI(array.length) === 0)) {
     var y = this$4.NIL$6
   } else {
@@ -23576,13 +23880,44 @@ $m_Lv_Main$().main__AT__V($makeNativeArrayWrapper($d_T.getArrayOf(), []));
       #sleep_min,
       #sleep_max {
         font-size: .5em;
-        border: 1px solid #909090;
-        color: #808080;
+        border-style: solid;
+        border-color: #808080;
+        border-width: 0;
       }
+      #sleep_min {
+        color: #646ee9;
+        border-bottom-width: 1px;
+      }
+      #sleep_max {
+        color: #e9da65;
+        border-top-width: 1px;
+      }
+
+      /*
+ * Do not remove the @namespace line -- it's required for correct functioning
+ */
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"); /* set default namespace to XUL */
+
+/*
+ * Hide tab bar, navigation bar and scrollbars
+ * !important may be added to force override, but not necessary
+ * #content is not necessary to hide scroll bars
+ */
+#TabsToolbar {visibility: collapse;}
+#navigator-toolbox {visibility: collapse;}
+browser {margin-right: -14px; margin-bottom: -14px;}
     </style>
   </head>
   <body>
-    <div class="container" id="display"></div>
+   <div class="container" id="display"
+    onclick="(() => {
+      window.open(
+        window.location.href,
+        Math.random(),
+        'titlebar=0,close=0'
+      )
+    })();"
+    ></div>
     <div class="container" id="panel">
       <div class="container left" id="sleeping_display">
         <div id="sleep_min"></div>
