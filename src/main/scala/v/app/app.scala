@@ -124,8 +124,7 @@ final class app(mane: Main) {
         val (probi, _) = cat.rand(mane.getRandomInt)
 
         (set_wait(get_random_wait(state)).apply _)
-          .andThen { set_instructed(cati, probi).apply }
-          .andThen { _ copy (selected_j = cati, selected_i = probi) }
+          .andThen { select(cati, probi).apply _ }
       }
       else
         set_wait(state.wait_duration - 1).apply _
@@ -152,5 +151,20 @@ final class app(mane: Main) {
   case class set_sleep_span(value: Int) extends Action {
     override def apply(state: State): State =
       state.copy(wait_span = value)
+  }
+
+  case class select(cati: Int, probi: Int) extends Action {
+    override def apply(state: State): State =
+      (set_instructed(cati, probi).apply _)
+        .andThen { _ copy (selected_j = cati, selected_i = probi) }
+        .apply(state)
+  }
+
+  case object select_random extends Action {
+    override def apply(state: State): State = {
+      val (cati, cat) = state.cats.rand(mane.getRandomInt)
+      val (probi, _) = cat.rand(mane.getRandomInt)
+      select(cati, probi)(state)
+    }
   }
 }

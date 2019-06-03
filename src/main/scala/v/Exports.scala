@@ -58,4 +58,10 @@ object Exports {
 
   def sleep_span(value: Int): Unit =
     dispatch(app.set_sleep_span(value))
+
+  def select(cati: Int, probi: Int): Unit =
+    dispatch(app.select(cati, probi))
+
+  def select_random: Unit =
+    dispatch(app.select_random)
 }

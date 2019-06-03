@@ -4,11 +4,12 @@ object cats extends Map[String, Vector[String]] {
 
   private val store = Map(
     "illusion" -> Vector(
-      "but what",
-      "if the point",
-      "of this life",
-      "is just to be",
-      "and experience all that is",
+      "but what if",
+      "the point of",
+      "this life is",
+      "just to be",
+      "and experience ",
+      "all that is",
     ),
     "direction" -> Vector(
       "front",
