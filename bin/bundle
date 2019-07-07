@@ -2,6 +2,6 @@
 b=bundle.html
 head -3 kndex.html >$b
 echo '<script>' >>$b
-cat target/scala-2.12/v-dot-zero-dot-one-fastopt.js >>$b
+cat target/scala-2.12/v-dot-zero-dot-one-opt.js >>$b
 echo '</script>' >>$b
 ruby -e 'STDIN.read.each_line.drop(4).each(&method(:puts))' <kndex.html >>$b
