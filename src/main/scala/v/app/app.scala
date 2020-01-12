@@ -25,7 +25,7 @@ final class app(mane: Main) {
         .zipWithIndex
         .map {
           case ((cat_name, probs_names), cati) ⇒
-            val probs = (probs_names :+ JOKER).zipWithIndex.map {
+            val probs = (probs_names /* :+ JOKER */).zipWithIndex.map {
               case (prob_name, probi) ⇒
                 Prob(name = prob_name, prob = Rational(1, probs_names.size))
             }
